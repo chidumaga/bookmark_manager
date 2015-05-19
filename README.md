@@ -1,3 +1,3 @@
 # bookmark_manager
 
-Learning to work with PostgresSQL
+Learning to work with DataMapper
