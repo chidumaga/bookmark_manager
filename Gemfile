@@ -10,6 +10,7 @@ group :development, :test do
   gem 'data_mapper'
   gem 'dm-postgres-adapter'
   gem 'launchy'
+  gem 'rack-flash3'
   gem 'rspec'
   gem 'shotgun'
 end
