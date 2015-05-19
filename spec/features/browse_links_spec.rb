@@ -16,10 +16,19 @@ feature 'user browses links' do
     expect(link.url).to eq('http://github.com')
   end
 
-  def add_link title, url
+  scenario 'with a few tags' do
+    visit '/'
+    add_link('BBC', 'http://bbc.co.uk', %w(news information))
+    link = Link.first
+    expect(link.tags.map(&:text)).to include('news', 'information')
+  end
+
+  def add_link title, url, tags=[]
     within('#new-link') do
       fill_in 'url', with: url
       fill_in 'title', with: title
+
+      fill_in 'tags', with: tags.join(' ')
       click_button 'Add link'
     end
 
