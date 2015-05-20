@@ -7,6 +7,7 @@ DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
 
 require './lib/link'
 require './lib/tag'
+require './lib/user'
 
 DataMapper.finalize
 
@@ -31,6 +32,15 @@ class BookmarkManager < Sinatra::Base
     tag = Tag.first(text: params[:text])
     @links = tag ? tag.links : []
     erb :index
+  end
+
+  get '/users/new' do
+    erb :users
+  end
+
+  post '/users/new' do
+    @user = User.create(name: params[:name], email: params[:email])
+    erb :users
   end
 
   # start the server if ruby file executed directly
