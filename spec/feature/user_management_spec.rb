@@ -8,13 +8,19 @@ feature "user management" do
     user = User.first
     expect(user.name).to eq("Boy")
   end
+
+  scenario "but must enter the same pword twice" do
+    expect {sign_up 'girl', 'girl@girl.com', 'justagirl', 'justaboy'}.to change(User, :count).by(0)
+  end
 end
 
-def sign_up name="Boy", email="boy@boy.com"
+def sign_up name="Boy", email="boy@boy.com", password="justaboy", password_confirmation="justaboy"
   visit '/users/new'
   within("#sign-up") do
       fill_in 'name', :with => name
       fill_in 'email', :with => email
+      fill_in 'password', :with => password
+      fill_in 'password_confirmation', :with => password_confirmation
       click_button "Add user"
     end
 end
