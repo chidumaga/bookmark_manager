@@ -14,7 +14,7 @@ feature "Bookmark manager" do
     add_link("Brap", "brap.co", %w(trap hood))
     expect(Link.count).to eq(1)
     link = Link.first
-    expect(link.tags.map(&:text)).to include("trap")
+    expect(link.tags.map(&:text)).to include("trap", "hood")
   end
 
   def add_link title, url, tags=[]
@@ -22,6 +22,7 @@ feature "Bookmark manager" do
     within("#add-link") do
       fill_in 'title', :with => title
       fill_in 'url', :with => url
+      fill_in 'tags', :with => tags.join(' ')
     end
     click_button "Add link"
   end
